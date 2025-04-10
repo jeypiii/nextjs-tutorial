@@ -46,15 +46,32 @@ public class EmployeeService {
     public void updateEmployee(int id, Employee employee) {
         final String additionalMessage = "Attempting to update " + employee;
 
-        if (!employeeRepository.findById(id).isPresent()) {
+        Employee origEmployee = employeeRepository.findById(id).orElse(null);
+        if (origEmployee == null) {
             throw new EmployeeNotFoundException(employee.getEmployeeId()).setContextMessage(additionalMessage);
         }
-
-        if (employee.getEmployeeId() != id) {
-            throw new EmployeeIdMismatchException(employee.getEmployeeId()).setContextMessage(additionalMessage);
+        
+//        if (employee.getEmployeeId() != id) {
+//            throw new EmployeeIdMismatchException(employee.getEmployeeId()).setContextMessage(additionalMessage);
+//        }
+        
+        if (! (employee.getFirstName() == null || employee.getFirstName().isBlank())) {
+			origEmployee.setFirstName(employee.getFirstName());
+        }
+        if (! (employee.getLastName() == null || employee.getLastName().isBlank())) {
+			origEmployee.setLastName(employee.getLastName());
+        }
+        if (! (employee.getMiddleName() == null|| employee.getMiddleName().isBlank())) {
+			origEmployee.setMiddleName(employee.getMiddleName());
+        }
+        if (! (employee.getDateOfBirth() == null)) {
+			origEmployee.setDateOfBirth(employee.getDateOfBirth());
+        }
+        if (! (employee.getSalary() == null)) {
+			origEmployee.setSalary(employee.getSalary());
         }
 
-        employeeRepository.save(employee);
+        employeeRepository.save(origEmployee);
     }
 
     public void removeEmployee(int id) {

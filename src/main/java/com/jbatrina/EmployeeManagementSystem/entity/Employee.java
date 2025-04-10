@@ -17,7 +17,7 @@ import lombok.Setter;
 @AttributeOverride(name = "personId", column = @Column(name = "employeeId"))
 public class Employee extends Person {
     @NotNull
-    private double salary;
+    private Double salary;
 
 	public int getEmployeeId() {
 		return super.getPersonId();
