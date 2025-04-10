@@ -23,6 +23,7 @@ public class User {
     private int userId;
 
     // login details
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false, unique = true)
@@ -30,6 +31,7 @@ public class User {
     @NotEmpty(message = "Email cannot be empty")
     private String email;
     @Column(nullable = false)
+    @NotEmpty
     private String password;
 
 //    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

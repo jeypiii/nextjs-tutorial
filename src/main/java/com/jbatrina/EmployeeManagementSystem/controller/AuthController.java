@@ -36,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<LoginDto> signup(@RequestBody User user) {
+    public ResponseEntity<LoginDto> signup(@Valid @RequestBody User user) {
         User registeredUser = userService.addNormalUser(user, user.getPassword());
         return new ResponseEntity<>(new LoginDto(registeredUser), HttpStatus.OK);
     }
