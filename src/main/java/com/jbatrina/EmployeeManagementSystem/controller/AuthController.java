@@ -5,6 +5,9 @@ import com.jbatrina.EmployeeManagementSystem.dto.LoginDto;
 import com.jbatrina.EmployeeManagementSystem.entity.User;
 import com.jbatrina.EmployeeManagementSystem.service.AuthService;
 import com.jbatrina.EmployeeManagementSystem.service.UserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class AuthController {
 
     // Build Login REST API
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginDto loginDto){
         String token = authService.login(loginDto);
 
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();

@@ -2,8 +2,12 @@ package com.jbatrina.EmployeeManagementSystem.dto;
 
 import com.jbatrina.EmployeeManagementSystem.entity.User;
 
+import jakarta.validation.constraints.NotNull;
+
 public class LoginDto {
+	@NotNull
     private String usernameOrEmail;
+	@NotNull
     private String password;
 
     public LoginDto() {
