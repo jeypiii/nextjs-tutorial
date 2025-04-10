@@ -22,7 +22,7 @@ public class EmployeeManagementSystemException extends RuntimeException {
     }
 
     public EmployeeManagementSystemException(int id, String contextMessage, Object contextObject) {
-        this("A EmployeeManagementSystem error has occurred.", id, contextMessage, contextObject);
+        this("An EmployeeManagementSystem error has occurred.", id, contextMessage, contextObject);
     }
 
     public EmployeeManagementSystemException(int id, String contextMessage) {
