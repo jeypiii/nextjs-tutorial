@@ -20,4 +20,8 @@ public class Role {
     private int roleId;
     // TODO: make role name type-safe
     private String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }
