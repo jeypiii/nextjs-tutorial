@@ -7,6 +7,8 @@ import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import com.jbatrina.EmployeeManagementSystem.service.AuthService;
 import com.jbatrina.EmployeeManagementSystem.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
@@ -47,14 +49,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/addEmployee")
-    public int addEmployee(@RequestBody Employee employee) throws EmployeeIdConflictException {
+    public int addEmployee(@Valid @RequestBody Employee employee) throws EmployeeIdConflictException {
         requireAdmin();
         Employee newEmployee = employeeService.addEmployee(employee);
         return newEmployee.getEmployeeId();
     }
 
     @PutMapping("/updateEmployee/{id}")
-    public void updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
+    public void updateEmployee(@PathVariable int id, @Valid @RequestBody Employee employee) {
         requireAdmin();
         employeeService.updateEmployee(id, employee);
     }

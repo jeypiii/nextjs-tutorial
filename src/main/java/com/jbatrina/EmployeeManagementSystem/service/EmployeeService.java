@@ -1,5 +1,6 @@
 package com.jbatrina.EmployeeManagementSystem.service;
 
+import com.jbatrina.EmployeeManagementSystem.dao.EmployeeRepository;
 import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

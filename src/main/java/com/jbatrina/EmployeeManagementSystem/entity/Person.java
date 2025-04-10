@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +22,9 @@ public abstract class Person {
     private int personId;
     
     // name
-    @Column(nullable = false)
+    @NotEmpty
     private String firstName;
-    @Column(nullable = false)
+    @NotEmpty
     private String lastName;
     @Column(nullable = true)
     private String middleName;
