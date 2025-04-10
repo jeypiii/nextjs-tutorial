@@ -19,4 +19,11 @@ public class Employee extends Person {
     @NotNull
     private double salary;
 
+	public int getEmployeeId() {
+		return super.getPersonId();
+	}
+
+	public void setEmployeeId(int id) {
+		super.setPersonId(id);
+	}
 }
