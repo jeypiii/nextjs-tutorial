@@ -79,19 +79,16 @@ public class DepartmentService {
         Department cartDepartment = getDepartment(departmentId);
         
         for (int employeeId : employeeIds) {
-			if (!employeeRepository.findById(employeeId).isPresent()) {
-				// TODO: collate all exceptions and send at once
-				throw new EmployeeNotFoundException(employeeId)
-					.setContextMessage(String.format("Attempting to add non-existent employee(ID: %d) to %s(ID: %d)", employeeId, departmentId));
-			}
-
+			// TODO: catch and collate all exceptions and send at once
 			addEmployeeToDepartment(cartDepartment, employeeId);
         }
     }
 
     private void addEmployeeToDepartment(Department department, int employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EmployeeNotFoundException(employeeId).setContextMessage("Attempting to add to department"));
+                .orElseThrow(() -> new EmployeeNotFoundException(employeeId)
+					.setContextMessage(String.format("Attempting to add non-existent employee(ID: %d) to %s(ID: %d)", employeeId, department.getDepartmentId()))
+				);
 
         Set<Employee> deptEmployees = department.getEmployees();
         if (deptEmployees.contains(employee)) {
