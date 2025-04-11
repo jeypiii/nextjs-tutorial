@@ -58,7 +58,7 @@ public class DepartmentController extends AdminController {
         departmentService.updateDepartment(id, department);
     }
 
-    @DeleteMapping("removeDepartment/{id}")
+    @DeleteMapping("/removeDepartment/{id}")
     public void updateDepartment(@PathVariable int id) {
         requireAdmin();
         departmentService.removeDepartment(id);
