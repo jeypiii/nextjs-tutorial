@@ -1,5 +1,7 @@
 package com.jbatrina.EmployeeManagementSystem.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -18,12 +20,33 @@ import lombok.Setter;
 public class Employee extends Person {
     @NotNull
     private Double salary;
+    
+    @NotNull
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private EmployeeType employeeType;
 
     @Override
     public String toString() {
     	return String.format("EMPLOYEE: %s (age %d)", super.toString(), super.getAge());
     }
     
+    // manual constructor including Person fields for convenience
+    public Employee(
+    	// Person fields
+		String firstName,
+		String lastName,
+		String middleName,
+		LocalDate dateOfBirth,
+
+		// Employee fields
+		Double salary,
+		EmployeeType employeeType
+    ) {
+    	super(firstName, lastName, middleName, dateOfBirth);
+    	this.salary = salary;
+    	this.employeeType = employeeType;
+    }
+
 	public int getEmployeeId() {
 		return super.getPersonId();
 	}
