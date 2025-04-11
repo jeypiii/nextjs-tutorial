@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/")
 @CrossOrigin
-public class EmployeeController {
+public class EmployeeController extends AdminController {
     @Autowired
     EmployeeService employeeService;
     @Autowired
@@ -98,12 +98,5 @@ public class EmployeeController {
         }
     }
 
-    protected void requireAdmin() {
-    	return;
-//        if (!authService.isAdmin()) {
-//            throw new AuthAdminRequiredException()
-//                    .setContextMessage("Attempting to use an admin-only api");
-//        }
-    }
 
 }
