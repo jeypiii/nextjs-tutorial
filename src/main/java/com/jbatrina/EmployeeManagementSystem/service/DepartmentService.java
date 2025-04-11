@@ -5,6 +5,7 @@ import com.jbatrina.EmployeeManagementSystem.dao.EmployeeRepository;
 import com.jbatrina.EmployeeManagementSystem.entity.Department;
 import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentAlreadyContainsEmployeeException;
+import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentDoesNotContainEmployeeException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentIdConflictException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentNotFoundException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeNotFoundException;
@@ -98,6 +99,35 @@ public class DepartmentService {
         }
 
         deptEmployees.add(employee);
+        departmentRepository.save(department);
+    }
+    
+    public void removeEmployeesFromDepartment(int departmentId, int[] employeeIds) {
+        Department department = getDepartment(departmentId);
+        
+        for (int employeeId : employeeIds) {
+			// TODO: catch and collate all exceptions and send at once
+        	// TODO: delay save after all employees are removed
+			removeEmployeeFromDepartment(department, employeeId);
+		}
+    }
+
+    private void removeEmployeeFromDepartment(Department department, int employeeId) {
+    	final int departmentId = department.getDepartmentId();
+		Employee employee = employeeRepository.findById(employeeId)
+				.orElseThrow(() -> new EmployeeNotFoundException(employeeId)
+						.setContextMessage(String.format("Attempting to remove non-existent Employee(ID: %d) from Department(ID: %d)", employeeId, departmentId))
+				);
+
+		Set<Employee> deptEmployees = department.getEmployees();
+		if (!deptEmployees.remove(employee)) {
+				throw new DepartmentDoesNotContainEmployeeException(departmentId)
+						.setEmployee(employee)
+						.setContextMessage(String.format("Employee(%d) in Department(%d) not found", employeeId, department.getDepartmentId())
+				);
+
+		}
+		
         departmentRepository.save(department);
     }
 }

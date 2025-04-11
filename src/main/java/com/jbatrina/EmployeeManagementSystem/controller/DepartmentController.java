@@ -69,4 +69,8 @@ public class DepartmentController extends AdminController {
     	departmentService.addEmployeesToDepartment(departmentId, employeeIds);
     }
 
+    @DeleteMapping("/removeDepartmentEmployees/{departmentId}")
+    public void removeDepartmentEmployee(@PathVariable int departmentId, @RequestBody int[] employeeIds) {
+    	departmentService.removeEmployeesFromDepartment(departmentId, employeeIds);
+    }
 }
