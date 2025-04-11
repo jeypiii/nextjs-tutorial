@@ -6,10 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.jbatrina.EmployeeManagementSystem.entity.Department;
 import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import com.jbatrina.EmployeeManagementSystem.entity.EmployeeType;
 import com.jbatrina.EmployeeManagementSystem.entity.Role;
 import com.jbatrina.EmployeeManagementSystem.entity.User;
+import com.jbatrina.EmployeeManagementSystem.service.DepartmentService;
 import com.jbatrina.EmployeeManagementSystem.service.EmployeeService;
 import com.jbatrina.EmployeeManagementSystem.service.EmployeeTypeService;
 import com.jbatrina.EmployeeManagementSystem.service.RoleService;
@@ -29,6 +31,9 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 	EmployeeService employeeService;
 	@Autowired
 	EmployeeTypeService employeeTypeService;
+
+	@Autowired
+	DepartmentService departmentService;
 
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String ddlAuto;
@@ -85,6 +90,9 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 						contractualType
 					));
 			
+			// add dummy departments
+			Department devDept = departmentService.addDepartment(new Department("Development Department"));
+			Department testDept = departmentService.addDepartment(new Department("Test Department"));
 			
 			// add users
 			userService.addAdminUser(new User(

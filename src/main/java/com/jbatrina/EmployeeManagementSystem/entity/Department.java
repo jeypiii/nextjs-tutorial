@@ -34,4 +34,10 @@ public class Department {
     )
     private Set<Employee> employees;
     
+
+    // convenience constructor
+    public Department(String name) {
+    	this.name = name;
+	}
+
 }
