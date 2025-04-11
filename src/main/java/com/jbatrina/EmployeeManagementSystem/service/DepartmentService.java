@@ -1,9 +1,13 @@
 package com.jbatrina.EmployeeManagementSystem.service;
 
 import com.jbatrina.EmployeeManagementSystem.dao.DepartmentRepository;
+import com.jbatrina.EmployeeManagementSystem.dao.EmployeeRepository;
 import com.jbatrina.EmployeeManagementSystem.entity.Department;
+import com.jbatrina.EmployeeManagementSystem.entity.Employee;
+import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentAlreadyContainsEmployeeException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentIdConflictException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.DepartmentNotFoundException;
+import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public List<Department> getAllDepartments() {
         List<Department> departments = new ArrayList<>();
@@ -67,5 +74,33 @@ public class DepartmentService {
     
     
     // The methods below handle the Department-Employee relation
+    /*******************************************************************/
+    public void addEmployeesToDepartment(int departmentId, int[] employeeIds) {
+        Department cartDepartment = getDepartment(departmentId);
+        
+        for (int employeeId : employeeIds) {
+			if (!employeeRepository.findById(employeeId).isPresent()) {
+				// TODO: collate all exceptions and send at once
+				throw new EmployeeNotFoundException(employeeId)
+					.setContextMessage(String.format("Attempting to add non-existent employee(ID: %d) to %s(ID: %d)", employeeId, departmentId));
+			}
+
+			addEmployeeToDepartment(cartDepartment, employeeId);
+        }
+    }
+
+    private void addEmployeeToDepartment(Department department, int employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException(employeeId).setContextMessage("Attempting to add to department"));
+
+        Set<Employee> deptEmployees = department.getEmployees();
+        if (deptEmployees.contains(employee)) {
+        	throw new DepartmentAlreadyContainsEmployeeException(department.getDepartmentId())
+        		.setContextMessage(String.format("'%s'(ID: %d) already in '%s'(ID: %d)", employee, employeeId, department.getName(), department.getDepartmentId()));
+        }
+
+        deptEmployees.add(employee);
+        departmentRepository.save(department);
+    }
 }
 
