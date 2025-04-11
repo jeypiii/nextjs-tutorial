@@ -80,6 +80,7 @@ public class DepartmentService {
         
         for (int employeeId : employeeIds) {
 			// TODO: catch and collate all exceptions and send at once
+        	// TODO: delay save after all employees are added
 			addEmployeeToDepartment(cartDepartment, employeeId);
         }
     }

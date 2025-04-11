@@ -64,7 +64,7 @@ public class DepartmentController extends AdminController {
         departmentService.removeDepartment(id);
     }
     
-    @PostMapping("/addDepartmentEmployee/{departmentId}")
+    @PostMapping("/addDepartmentEmployees/{departmentId}")
     public void addDepartmentEmployee(@PathVariable int departmentId, @RequestBody int[] employeeIds) {
     	departmentService.addEmployeesToDepartment(departmentId, employeeIds);
     }
