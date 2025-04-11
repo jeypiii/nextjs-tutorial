@@ -40,4 +40,11 @@ public abstract class Person {
     	
     	return ageDate.getYear();
     }
+    
+    @Override
+    public String toString() {
+    	final boolean hasMiddleName = middleName != null && !middleName.isBlank();
+
+    	return String.format("%s, %s%s", lastName.toUpperCase(), firstName, hasMiddleName ? (" " + middleName) : "");
+    }
 }

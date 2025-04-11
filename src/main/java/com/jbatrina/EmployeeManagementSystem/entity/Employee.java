@@ -19,6 +19,11 @@ public class Employee extends Person {
     @NotNull
     private Double salary;
 
+    @Override
+    public String toString() {
+    	return String.format("EMPLOYEE: %s (age %d)", super.toString(), super.getAge());
+    }
+    
 	public int getEmployeeId() {
 		return super.getPersonId();
 	}
