@@ -23,7 +23,7 @@ public class EmployeeException extends EmployeeManagementSystemException{
         return (Employee) getContextObject();
     }
 
-    public com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeException setEmployee(Employee employee) {
+    public EmployeeException setEmployee(Employee employee) {
         setContextObject((Object) employee);
         return this;
     }
