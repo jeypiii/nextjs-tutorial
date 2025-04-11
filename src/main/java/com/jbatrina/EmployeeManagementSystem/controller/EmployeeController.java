@@ -61,7 +61,7 @@ public class EmployeeController extends AdminController {
         employeeService.updateEmployee(id, employee);
     }
 
-    @DeleteMapping("removeEmployee/{id}")
+    @DeleteMapping("/removeEmployee/{id}")
     public void updateEmployee(@PathVariable int id) {
         requireAdmin();
         employeeService.removeEmployee(id);
