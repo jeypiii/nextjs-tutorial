@@ -98,5 +98,23 @@ public class EmployeeController extends AdminController {
         }
     }
 
+    // Endpoints for processing methods
+    @GetMapping("/getAverageSalary")
+    public Double getAverageSalary(@RequestBody int[] employeeIds) {
+    	if (employeeIds.length == 0) {
+			return employeeService.calculateAverageSalary();
+    	}
+   
+    	return employeeService.calculateAverageSalary(employeeIds);
+    }
+
+    @GetMapping("/getAverageAge")
+    public Double getAverageAge(@RequestBody int[] employeeIds) {
+    	if (employeeIds.length == 0) {
+			return employeeService.calculateAverageAge();
+    	}
+   
+    	return employeeService.calculateAverageAge(employeeIds);
+    }
 
 }

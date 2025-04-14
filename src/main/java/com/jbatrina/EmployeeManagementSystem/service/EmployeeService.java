@@ -81,5 +81,52 @@ public class EmployeeService {
 
         employeeRepository.deleteById(id);
     }
+    
+    public List<Employee> getEmployeesById(int [] employeeIds) {
+    	List<Employee> employees = new ArrayList<Employee>();
+    	for (int employeeId : employeeIds) {
+    		employees.add(getEmployee(employeeId));
+    	}
+    	
+    	return employees;
+    }
+    
+    
+    // Processing methods
+    public double calculateAverageSalary() {
+    	return calculateAverageSalary(getAllEmployees());
+    }
+
+    public double calculateAverageSalary(int[] employeeIds) {
+    	return calculateAverageSalary(getEmployeesById(employeeIds));
+    }
+ 
+    public double calculateAverageSalary(List<Employee> employees) {
+    	Double totalSalary = 0.0;
+    	for (Employee e : employees) {
+    		totalSalary += e.getSalary(); 
+		}
+    	
+    	return totalSalary / employees.size();
+    }
+
+    public double calculateAverageAge() {
+    	return calculateAverageAge(getAllEmployees());
+    }
+
+    public double calculateAverageAge(int[] employeeIds) {
+    	return calculateAverageAge(getEmployeesById(employeeIds));
+    }
+
+    public double calculateAverageAge(List<Employee> employees) {
+    	Double totalAge = 0.0;
+    	for (Employee e : employees) {
+    		System.out.println(e + " Age: " + e.getAge());
+    		totalAge += e.getAge(); 
+		}
+    	
+    	return totalAge / employees.size();
+    }
+    
 }
 
