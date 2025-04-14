@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @AttributeOverride(name = "personId", column = @Column(name = "employeeId"))
 public class Employee extends Person {
     @NotNull
+    @Min(value=0)
     private Double salary;
     
     @NotNull
