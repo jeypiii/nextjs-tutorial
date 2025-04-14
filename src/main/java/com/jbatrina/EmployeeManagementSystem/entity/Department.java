@@ -29,7 +29,7 @@ public class Department {
     
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "department_employees",
-            joinColumns = @JoinColumn(name = "depatrment_id", referencedColumnName = "departmentId"),
+            joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "departmentId"),
             inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
     )
     private Set<Employee> employees;
