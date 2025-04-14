@@ -46,11 +46,11 @@ public abstract class Person {
     }
     
     public int getAge() {
-    	LocalDate ageDate = LocalDate.now();
-    	ageDate.minusYears(dateOfBirth.getYear());
-    	ageDate.minusMonths(dateOfBirth.getMonthValue());
-    	ageDate.minusDays(dateOfBirth.getDayOfYear());
-    	
+    	LocalDate now = LocalDate.now();
+    	LocalDate ageDate = now.minusYears(dateOfBirth.getYear())
+    		.minusMonths(dateOfBirth.getMonthValue())
+    		.minusDays(dateOfBirth.getDayOfYear());
+
     	return ageDate.getYear();
     }
     
