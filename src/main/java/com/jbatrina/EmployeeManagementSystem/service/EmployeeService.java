@@ -54,15 +54,22 @@ public class EmployeeService {
 //        if (employee.getEmployeeId() != id) {
 //            throw new EmployeeIdMismatchException(employee.getEmployeeId()).setContextMessage(additionalMessage);
 //        }
+        if (employee.getMiddleName() != null) {
+        	String middleName = employee.getMiddleName();
+        	if (employee.getMiddleName().isBlank()) {
+        		middleName = null;
+        	}
+        	
+        	System.out.println(origEmployee + " mid " + middleName);
+
+			origEmployee.setMiddleName(middleName);
+        }
         
         if (! (employee.getFirstName() == null || employee.getFirstName().isBlank())) {
 			origEmployee.setFirstName(employee.getFirstName());
         }
         if (! (employee.getLastName() == null || employee.getLastName().isBlank())) {
 			origEmployee.setLastName(employee.getLastName());
-        }
-        if (! (employee.getMiddleName() == null|| employee.getMiddleName().isBlank())) {
-			origEmployee.setMiddleName(employee.getMiddleName());
         }
         if (! (employee.getDateOfBirth() == null)) {
 			origEmployee.setDateOfBirth(employee.getDateOfBirth());
