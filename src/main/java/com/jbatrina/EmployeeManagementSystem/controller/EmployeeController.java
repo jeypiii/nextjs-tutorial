@@ -3,6 +3,7 @@ package com.jbatrina.EmployeeManagementSystem.controller;
 import com.jbatrina.EmployeeManagementSystem.exceptions.AuthAdminRequiredException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeIdConflictException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeImageNotFoundException;
+import com.jbatrina.EmployeeManagementSystem.dto.EmployeeDto;
 import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import com.jbatrina.EmployeeManagementSystem.service.AuthService;
 import com.jbatrina.EmployeeManagementSystem.service.EmployeeService;
@@ -39,13 +40,15 @@ public class EmployeeController extends AdminController {
     }
 
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public List<EmployeeDto> getAllEmployees() {
+        return employeeService.getAllEmployees().stream()
+        		.map((e) -> new EmployeeDto(e))
+        		.toList();
     }
 
     @GetMapping("/employee/{id}")
-    public Employee getEmployee(@PathVariable int id) {
-        return employeeService.getEmployee(id);
+    public EmployeeDto getEmployee(@PathVariable int id) {
+        return new EmployeeDto(employeeService.getEmployee(id));
     }
 
     @PostMapping("/addEmployee")
