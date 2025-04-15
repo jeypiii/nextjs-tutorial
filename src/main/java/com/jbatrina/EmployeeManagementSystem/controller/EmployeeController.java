@@ -105,7 +105,9 @@ public class EmployeeController extends AdminController {
     }
 
     // Endpoints for processing methods
-    @GetMapping("/getAverageSalary")
+    // @GetMapping("/getAverageSalary")
+    // NOTE: Next.js does not allow GET with body, so just use POST
+	@PostMapping("/getAverageSalary")
     public Double getAverageSalary(@RequestBody int[] employeeIds) {
     	if (employeeIds.length == 0) {
 			return employeeService.calculateAverageSalary();
@@ -114,7 +116,9 @@ public class EmployeeController extends AdminController {
     	return employeeService.calculateAverageSalary(employeeIds);
     }
 
-    @GetMapping("/getAverageAge")
+    // @GetMapping("/getAverageAge")
+    // NOTE: Next.js does not allow GET with body, so just use POST
+    @PostMapping("/getAverageAge")
     public Double getAverageAge(@RequestBody int[] employeeIds) {
     	if (employeeIds.length == 0) {
 			return employeeService.calculateAverageAge();
