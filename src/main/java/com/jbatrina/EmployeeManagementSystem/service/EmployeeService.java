@@ -1,6 +1,8 @@
 package com.jbatrina.EmployeeManagementSystem.service;
 
+import com.jbatrina.EmployeeManagementSystem.dao.DepartmentRepository;
 import com.jbatrina.EmployeeManagementSystem.dao.EmployeeRepository;
+import com.jbatrina.EmployeeManagementSystem.entity.Department;
 import com.jbatrina.EmployeeManagementSystem.entity.Employee;
 import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeIdConflictException;
 import com.jbatrina.EmployeeManagementSystem.exceptions.EmployeeIdMismatchException;
@@ -17,6 +19,9 @@ import java.util.Optional;
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
@@ -94,6 +99,14 @@ public class EmployeeService {
         if (!employeeRepository.findById(id).isPresent()) {
             throw new EmployeeNotFoundException(id).setContextMessage("Attempting to remove employee ");
         }
+        
+        Employee employee = getEmployee(id);
+        
+        final List<Department> affectedDepts = departmentRepository.findAllByEmployeesPersonId(id);
+        affectedDepts.forEach((dept) -> {
+        	dept.getEmployees().remove(employee);
+        	departmentRepository.save(dept);
+        });
 
         employeeRepository.deleteById(id);
     }

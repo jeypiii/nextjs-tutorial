@@ -112,7 +112,7 @@ public class DepartmentService {
 		}
     }
 
-    private void removeEmployeeFromDepartment(Department department, int employeeId) {
+	private void removeEmployeeFromDepartment(Department department, int employeeId) {
     	final int departmentId = department.getDepartmentId();
 		Employee employee = employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new EmployeeNotFoundException(employeeId)
