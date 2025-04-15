@@ -77,12 +77,12 @@ public class DepartmentService {
     // The methods below handle the Department-Employee relation
     /*******************************************************************/
     public void addEmployeesToDepartment(int departmentId, int[] employeeIds) {
-        Department cartDepartment = getDepartment(departmentId);
+        Department department = getDepartment(departmentId);
         
         for (int employeeId : employeeIds) {
 			// TODO: catch and collate all exceptions and send at once
         	// TODO: delay save after all employees are added
-			addEmployeeToDepartment(cartDepartment, employeeId);
+			addEmployeeToDepartment(department, employeeId);
         }
     }
 
