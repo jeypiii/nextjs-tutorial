@@ -24,7 +24,7 @@ public class Department {
     private int departmentId;
     
     @NotEmpty
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
