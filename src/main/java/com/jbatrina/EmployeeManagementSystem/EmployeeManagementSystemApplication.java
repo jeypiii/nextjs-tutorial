@@ -60,7 +60,7 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 			EmployeeType regularType = employeeTypeService.addEmployeeType("REGULAR");
 			EmployeeType contractualType = employeeTypeService.addEmployeeType("CONTRACTUAL");
 			
-			employeeService.addEmployee(new Employee(
+			Employee probationary = employeeService.addEmployee(new Employee(
 						"proby",
 						"probationary",
 						"probo",
@@ -70,7 +70,7 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 						probationaryType
 					));
 
-			employeeService.addEmployee(new Employee(
+			Employee regular = employeeService.addEmployee(new Employee(
 						"reggie",
 						"regular",
 						"regulo",
@@ -80,7 +80,7 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 						regularType
 					));
 
-			employeeService.addEmployee(new Employee(
+			Employee contractual = employeeService.addEmployee(new Employee(
 						"conty",
 						"contractual",
 						"contro",
@@ -93,6 +93,11 @@ public class EmployeeManagementSystemApplication implements CommandLineRunner {
 			// add dummy departments
 			Department devDept = departmentService.addDepartment(new Department("Development Department"));
 			Department testDept = departmentService.addDepartment(new Department("Test Department"));
+	
+			departmentService.addEmployeesToDepartment(devDept.getDepartmentId(), new int[] { regular.getEmployeeId() });
+			departmentService.addEmployeesToDepartment(devDept.getDepartmentId(), new int[] { probationary.getEmployeeId() });
+			departmentService.addEmployeesToDepartment(testDept.getDepartmentId(), new int[] { contractual.getEmployeeId() });
+			departmentService.addEmployeesToDepartment(testDept.getDepartmentId(), new int[] { probationary.getEmployeeId() });
 			
 			// add users
 			userService.addAdminUser(new User(
