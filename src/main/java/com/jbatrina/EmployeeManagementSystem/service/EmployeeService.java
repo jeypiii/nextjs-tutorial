@@ -77,6 +77,9 @@ public class EmployeeService {
         if (! (employee.getSalary() == null)) {
 			origEmployee.setSalary(employee.getSalary());
         }
+        if (! (employee.getEmployeeType() == null)) {
+			origEmployee.setEmployeeType(employee.getEmployeeType());
+        }
 
         employeeRepository.save(origEmployee);
     }
