@@ -84,6 +84,12 @@ public class EmployeeService {
         employeeRepository.save(origEmployee);
     }
 
+    public void removeEmployees(int[] ids) {
+    	for (int id : ids) {
+    		removeEmployee(id);
+    	}
+    }
+ 
     public void removeEmployee(int id) {
         if (!employeeRepository.findById(id).isPresent()) {
             throw new EmployeeNotFoundException(id).setContextMessage("Attempting to remove employee ");
