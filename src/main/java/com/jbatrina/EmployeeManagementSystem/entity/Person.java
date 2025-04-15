@@ -29,6 +29,7 @@ public abstract class Person {
     @Column(nullable = true)
     private String middleName;
 
+    @NotNull
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
